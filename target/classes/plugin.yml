@@ -2,3 +2,10 @@ name: MatometeCmd
 main: com.github.smk7758.MatometeCmd.Main
 version: 0.0.1
 author: smk7758
+permissions:
+  MatometeCmd.cmds:
+    description: Allows using MatometeCmd's commands.
+    default: false
+commands:
+  MatometeCmd:
+    description: MatometeCmd's command.
