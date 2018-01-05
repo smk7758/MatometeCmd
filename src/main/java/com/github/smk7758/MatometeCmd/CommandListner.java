@@ -19,21 +19,25 @@ public class CommandListner implements Listener {
 	}
 
 	@EventHandler
-	public boolean onPlayerCommand(PlayerCommandPreprocessEvent event) {
-		callCommand(event.getMessage(), event.getPlayer());
+	public void onPlayerCommand(PlayerCommandPreprocessEvent event) {
+		if (!hasCommand(event.getMessage())) return;
 		event.setCancelled(true);
-		return false;
+		callCommand(event.getMessage(), event.getPlayer());
 	}
 
 	@EventHandler
-	public boolean onServerCommand(ServerCommandEvent event) {
-		callCommand(event.getCommand(), event.getSender());
+	public void onServerCommand(ServerCommandEvent event) {
+		if (!hasCommand(event.getCommand())) return;
 		event.setCancelled(true);
-		return false;
+		callCommand(event.getCommand(), event.getSender());
+	}
+
+	public boolean hasCommand(String cmd) {
+		if (main.getConfig().contains("Commands." + cmd)) return true;
+		else return false;
 	}
 
 	public boolean callCommand(String cmd, CommandSender sender) {
-		if (!main.getConfig().contains("Commands." + cmd)) return false;
 		List<String> config_commands = main.getConfig().getStringList("Commands." + cmd);
 		for (String config_command : config_commands) {
 			convertText(config_command, sender);
