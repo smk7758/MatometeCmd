@@ -1,0 +1,5 @@
+DebugMode: false
+Commands:
+  test1:
+  - gamemode 1
+  - say test1
