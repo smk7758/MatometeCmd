@@ -1,5 +1,7 @@
 package com.github.smk7758.MatometeCmd;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -75,5 +77,66 @@ public class Main extends JavaPlugin {
 
 	public Set<String> getCommands() {
 		return getConfig().getConfigurationSection("Commands").getKeys(true);
+	}
+
+	/**
+	 * Don't forget to run saveConfig().
+	 * @param cmd
+	 * @param list
+	 */
+	public void addCommand(String cmd, List<String> list) {
+		getConfig().set("Commands." + cmd, list);
+	}
+
+	/**
+	 * Don't forget to run saveConfig().
+	 * @param cmd
+	 * @param list
+	 */
+	public void removeCommand(String cmd) {
+		getConfig().set("Commands." + cmd, null);
+	}
+
+	/**
+	 * removes items from front, and returns with List.
+	 * @param array
+	 * @param length
+	 * @return
+	 * @throws IllegalArgumentException
+	 * @throws IndexOutOfBoundsException
+	 */
+	public List<String> removeFrontItemsOfArray(String[] array, int length) throws IllegalArgumentException, IndexOutOfBoundsException {
+		if (array == null) throw new IllegalArgumentException();
+		if (array.length < length) throw new IndexOutOfBoundsException("array length: " + array.length + "remove item length:" + length);
+		List<String> list = new ArrayList<String>(Arrays.asList(array));
+		for (int i = 0; i < length; i++) {
+			list.remove(0);
+		}
+		return list;
+	}
+
+	public List<String> slimItems(List<String> items) {
+		if (items == null) throw new IllegalArgumentException();
+		List<String> list = new ArrayList<String>();
+		for (String item : items) {
+			item = item.replaceAll("_", " ");
+			list.add(item);
+		}
+		return list;
+	}
+//	public List<String> removeAfterItemsOfArray(String[] array, int length) {
+//		List<String> list = new ArrayList<String>(Arrays.asList(array));
+//		for (int i = array.length; i > length; i--) {
+//			list.remove(i - 1);
+//		}
+//		return list;
+//	}
+
+	public CommandExecuter getCommandExecuter() {
+		return command_executer;
+	}
+
+	public CommandListner getCommandListner() {
+		return command_listner;
 	}
 }

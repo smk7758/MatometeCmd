@@ -20,6 +20,10 @@ public class SendLog {
 		sender.sendMessage(chat_prefix + text);
 	}
 
+	public static void error(String text, CommandSender sender) {
+		sender.sendMessage(error_prefix + text);
+	}
+
 	public static void debug(String text, CommandSender sender) {
 		if (Main.debug_mode) sender.sendMessage(debug_prefix + text);
 	}
